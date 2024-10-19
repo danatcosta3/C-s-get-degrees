@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
 import axios from "axios";
-import './MapPage.css';
+import '../MapPage.css';
 
 const MapPage = () => {
   const [searchParams] = useSearchParams(); // Get the search parameters from the URL
@@ -10,7 +10,6 @@ const MapPage = () => {
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null }); // State to store coordinates
   const [error, setError] = useState(null); // State to handle errors
   const [loading, setLoading] = useState(true); // State to handle loading status
-  const [filters, setFilters] = useState({ sickness: false, disease: false, std: false }); // State for data filters
 
   useEffect(() => {
     if (city) {
@@ -42,53 +41,16 @@ const MapPage = () => {
     }
   }, [city]); // Run effect when the city changes
 
-  const handleFilterChange = (event) => {
-    const { name, checked } = event.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: checked }));
-  };
-
   return (
-    <div className="map-page">
+    <div style={{ textAlign: "center", padding: "50px" }}>
       <h1 className="map-title">{city}</h1>
-      <div className="map-and-filters">
-        <div className="filter-panel">
-          <h3>Data Filters</h3>
-          <label style={{ color: 'blue' }}>
-            <input
-              type="checkbox"
-              name="sickness"
-              checked={filters.sickness}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">Sickness</span>
-          </label>
-          <label style={{ color: 'green' }}>
-            <input
-              type="checkbox"
-              name="disease"
-              checked={filters.disease}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">Disease</span>
-          </label>
-          <label style={{ color: 'red' }}>
-            <input
-              type="checkbox"
-              name="std"
-              checked={filters.std}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">STDs</span>
-          </label>
-        </div>
-        {loading && <p>Loading map...</p>} {/* Show loading message while fetching */}
-        {error && <p className="error-message">{error}</p>} {/* Display error if any */}
-        {!loading && coordinates.lat && coordinates.lon && (
-          <div className="map-container">
-            <MapComponent latitude={coordinates.lat} longitude={coordinates.lon} filters={filters} />
-          </div>
-        )}
-      </div>
+      {loading && <p>Loading map...</p>}{" "}
+      {/* Show loading message while fetching */}
+      {error && <p style={{ color: "red" }}>{error}</p>}{" "}
+      {/* Display error if any */}
+      {!loading && coordinates.lat && coordinates.lon && (
+        <MapComponent latitude={coordinates.lat} longitude={coordinates.lon} /> // Pass coordinates to MapComponent
+      )}
     </div>
   );
 };
