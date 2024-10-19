@@ -75,11 +75,10 @@ footer {
 }
 
 .suggest-container {
-  position: absolute; /* Position it absolutely */
   display: block; /* Ensure the container behaves as a block */
   background-color: #4d4646;
   height: 100vh;
-  width: 25vh;
+  width: 100%;
   top: 7vh;
   background-color: #d8d8d8;
 }
@@ -87,17 +86,16 @@ footer {
 .suggest-container ul {
   display: block; /* Ensure the ul behaves as a block element */
   list-style-type: none; /* Remove default bullet points */
-  padding: 0; /* Remove default padding */
+  padding: 20px; /* Remove default padding */
   margin: 0; /* Remove default margin */
 }
 
 .suggest-container li {
   display: block; /* Ensure each list item behaves like a block */
   margin-bottom: 10px; /* Space between each city */
-  margin-left: 17px;
   margin-top: 10px;
-  font-size: 25px; /* Set font size */
-  padding: 10px;
+  font-size: 17px; /* Set font size */
+  padding: 5px;
   cursor: pointer; /* Show pointer cursor on hover */
   color: #04aa6d; /* Style the text */
 }
@@ -112,7 +110,6 @@ footer {
   align-items: center; /* Center items vertically */
   justify-content: flex-start; /* Align content to the left */
   width: 100%; /* Full width */
-  position: absolute; /* Optional: Make it stick to the left side */
   margin-top: -45px;
   left: 25vh;
 }
@@ -125,9 +122,9 @@ footer {
   display: flex; /* Use flexbox for input and button */
   align-items: center; /* Center items vertically */
   justify-content: center; /* Center horizontally */
-  margin: 400px auto; /* Add space above and below, center horizontally */
-  margin-left: 320px;
-  width: 60%; /* Adjust the width to make it more compact */
+  /* margin: 400px auto; /* Add space above and below, center horizontally 
+  margin-left: 320px; */
+  width: 100%; /* Adjust the width to make it more compact */
 }
 
 .button {
