@@ -17,8 +17,8 @@ const AboutPage = () => {
      
         <h3 class="about-textHeader">How It Works</h3>
         <p className="about-text">
-          Simply enter your location, and GermWatch will provide a comprehensive index of local health concerns. You can click on each concern to explore detailed information and advice on how to stay safe.
-        </p>
+        Simply enter your location, and GermWatch will provide a comprehensive index of local health concerns. You can click on each concern to 
+        explore detailed information and advice on how to stay safe.</p>
      
     </div>
   );
