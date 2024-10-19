@@ -1,13 +1,16 @@
 import React from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
-function MapPage() {
+const MapPage = () => {
+  const [searchParams] = useSearchParams(); // Get the search parameters from the URL
+  const inputValue = searchParams.get("city"); // Retrieve the city parameter
+
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
-      <h1>This is the Map Page</h1>
+      <h1>City Entered: {inputValue}</h1> {/* Display the input value */}
       <MapComponent /> {/* Render the MapComponent here */}
     </div>
   );
-}
+};
 
-export default MapPage;
+export default MapPage; // Export the component

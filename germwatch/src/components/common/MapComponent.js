@@ -27,12 +27,12 @@ const MapComponent = () => {
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
       />
-      {/* Marker Example */}
+      {/* Marker Example
       <Marker position={position}>
         <Popup>
           A pretty CSS3 popup. <br /> Easily customizable.
         </Popup>
-      </Marker>
+      </Marker> */}
     </MapContainer>
   );
 };
