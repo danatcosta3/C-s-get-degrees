@@ -98,6 +98,7 @@
     justify-content: flex-start; /* Align content to the left */
     width: 100%; /* Full width */
     position: absolute; /* Optional: Make it stick to the left side */
+    margin-top: -45px;
     left: 25vh;
   }
   
@@ -109,8 +110,10 @@
     display: flex; /* Use flexbox for input and button */
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center horizontally */
-    margin: 200px auto; /* Add space above and below, center horizontally */
+    margin: 400px auto; /* Add space above and below, center horizontally */
+    margin-left: 320px;
     width: 60%; /* Adjust the width to make it more compact */
+
   }
 
   .button {

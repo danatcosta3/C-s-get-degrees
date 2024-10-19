@@ -15,6 +15,12 @@ function HomePage() {
     navigate(`/map?city=${encodeURIComponent(city)}`);
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleButtonClick(); // Trigger button click on Enter key
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -40,6 +46,7 @@ function HomePage() {
             placeholder="Enter City:"
             value={city} // Set the input value from state
             onChange={handleInputChange} // Handle input change
+            onKeyDown={handleKeyDown} // Listen for Enter key press
             className={city === "" ? "input-dim" : "input-normal"} // Conditional class for styling
           />
         
