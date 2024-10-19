@@ -20,7 +20,6 @@ function HomePage() {
       handleButtonClick(); // Trigger button click on Enter key
     }
   };
-
   const handleCityClick = (selectedCity) => {
     setCity(selectedCity); // Set the input field to the clicked city
     navigate(`/map?city=${encodeURIComponent(selectedCity)}`); // Navigate to the map page
