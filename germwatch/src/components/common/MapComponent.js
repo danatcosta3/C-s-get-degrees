@@ -18,8 +18,8 @@ L.Icon.Default.mergeOptions({
   shadowUrl: require("leaflet/dist/images/marker-shadow.png"),
 });
 
-const MapComponent = ({ latitude, longitude, filters, diseaseData }) => {
-  const position = [latitude, longitude]; // Set the position based on props
+const MapComponent = ({ latitude, longitude, diseaseData }) => {
+  const position = [latitude, longitude]; 
 
   // Define colors for diseases
   const diseaseColors = {
@@ -28,25 +28,6 @@ const MapComponent = ({ latitude, longitude, filters, diseaseData }) => {
     STD: "blue",
     TB: "green",
   };
-
-  // Generate markers based on filters and diseaseData
-  const markers = [];
-
-  diseaseData.forEach((disease) => {
-    if (filters[disease.name]) {
-      // The filter for this disease is active
-      disease.data.forEach((item) => {
-        // Create a marker for each data point
-        markers.push({
-          position: [item.lat, item.lon],
-          disease: disease.name,
-          cases: item.cases,
-          geography: item.Geography,
-          color: diseaseColors[disease.name] || "black",
-        });
-      });
-    }
-  });
 
   return (
     <MapContainer
@@ -57,7 +38,7 @@ const MapComponent = ({ latitude, longitude, filters, diseaseData }) => {
       {/* Tile Layer from OpenStreetMap */}
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-        attribution='&copy; OpenStreetMap contributors'
+        attribution="&copy; OpenStreetMap contributors"
       />
       {/* Marker at the given position */}
       <Marker position={position}>
@@ -66,21 +47,21 @@ const MapComponent = ({ latitude, longitude, filters, diseaseData }) => {
         </Popup>
       </Marker>
       {/* Disease markers */}
-      {markers.map((marker, index) => (
+      {diseaseData.map((item, index) => (
         <CircleMarker
           key={index}
-          center={marker.position}
+          center={[item.lat, item.lon]}
           radius={5}
-          color={marker.color}
-          fillColor={marker.color}
+          color={diseaseColors[item.disease] || "black"}
+          fillColor={diseaseColors[item.disease] || "black"}
           fillOpacity={0.5}
         >
           <Popup>
-            <strong>{marker.disease}</strong>
+            <strong>{item.disease}</strong>
             <br />
-            Cases: {marker.cases}
+            Cases: {item.cases}
             <br />
-            Geography: {marker.geography}
+            Geography: {item.Geography}
           </Popup>
         </CircleMarker>
       ))}

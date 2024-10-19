@@ -12,7 +12,7 @@ const MapPage = () => {
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [filters, setFilters] = useState({});
+  const [selectedDisease, setSelectedDisease] = useState(null);
   const [diseaseData, setDiseaseData] = useState([]);
 
   const fetchCoordinates = useCallback(async () => {
@@ -43,14 +43,8 @@ const MapPage = () => {
         { name: "HIV", file: "/data/hiv.csv" },
         { name: "Gonorrhea", file: "/data/gonorrhea.csv" },
         { name: "STD", file: "/data/Syphillis.csv" },
-        { name: "TB", file: "/data/Turberculosis.csv" }
+        { name: "TB", file: "/data/Turberculosis.csv" },
       ];
-
-      const initialFilters = {};
-      diseaseFiles.forEach((disease) => {
-        initialFilters[disease.name] = false;
-      });
-      setFilters(initialFilters);
 
       const dataPromises = diseaseFiles.map(async (disease) => {
         const response = await fetch(disease.file);
@@ -58,11 +52,11 @@ const MapPage = () => {
         const parsedData = Papa.parse(csvText, { header: true }).data;
 
         const dataWithCoordinates = parsedData.map((item) => {
+          
           const geography = item.Geography;
-          const cases = item.cases;
-
+          const cases = item.Cases;
+          
           if (!geography || !cases) return null;
-
           const coords = countyCoordinates[geography];
           if (!coords) return null;
 
@@ -110,9 +104,15 @@ const MapPage = () => {
   );
 
   const handleFilterChange = useCallback((event) => {
-    const { name, checked } = event.target;
-    setFilters((prevFilters) => ({ ...prevFilters, [name]: checked }));
+    const { value } = event.target;
+    setSelectedDisease(value);
   }, []);
+
+  const filteredDiseaseData = useMemo(() => {
+    if (!selectedDisease) return [];
+    const disease = diseaseData.find((d) => d.name === selectedDisease);
+    return disease ? disease.data : [];
+  }, [selectedDisease, diseaseData]);
 
   return (
     <div className="map-page">
@@ -120,15 +120,16 @@ const MapPage = () => {
       <div className="map-and-filters">
         <div className="filter-panel">
           <h3>Data Filters</h3>
-          {Object.keys(filters).map((filterName) => (
-            <label key={filterName} style={{ color: filterColors[filterName] }}>
+          {diseaseData.map(({ name }) => (
+            <label key={name} style={{ color: filterColors[name] }}>
               <input
-                type="checkbox"
-                name={filterName}
-                checked={filters[filterName]}
+                type="radio"
+                name="diseaseFilter"
+                value={name}
+                checked={selectedDisease === name}
                 onChange={handleFilterChange}
               />
-              <span className="filter-label">{filterName}</span>
+              <span className="filter-label">{name}</span>
             </label>
           ))}
         </div>
@@ -137,10 +138,10 @@ const MapPage = () => {
         {!loading && coordinates.lat && coordinates.lon && (
           <div className="map-container">
             <MapComponent
+              key={selectedDisease}
               latitude={coordinates.lat}
               longitude={coordinates.lon}
-              filters={filters}
-              diseaseData={diseaseData}
+              diseaseData={filteredDiseaseData}
             />
           </div>
         )}
