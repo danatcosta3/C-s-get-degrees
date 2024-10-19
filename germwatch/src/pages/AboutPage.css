@@ -1,32 +1,19 @@
-.App {
-  max-width: 900px;
-  margin: 0 auto;
-  /*padding: 20px;*/
-  font-family: Arial, sans-serif;
-  line-height: 1.6;
-  color: #000000;
+*{
+margin: 0;
+padding: 0;
+box-sizing: border-box;
 }
+
 .about-title {
-  font-size: 2.0em;
-  color: #000000;
-  text-align: center;
-}
-.about-description {
-  font-size: 1.2em;
-  text-align: center;
-  color: #000000;
-  padding-bottom: 10px;
-  padding-top: 0px;
-}
+    font-family: "Courier New", sans-serif;  
+  }
 
-.about-text {
-  font-size: 1.1em;
-  color: #000000;
-  text-align: center;
-}
 
-.about-textHeader {
-  color:#000000;
-  text-align: center;
-  font-size: 1.4em;
-}
+
+
+
+
+
+
+
+
