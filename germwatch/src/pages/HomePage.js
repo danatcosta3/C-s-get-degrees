@@ -19,16 +19,27 @@ function HomePage() {
     <div className="App">
       <header className="App-header">
         <p>
-          <b><center><h1 class = "germwatch-title">GermWatch</h1></center></b>
-          <center><img src={"logo512.png"} alt="GermWatch Logo" className="App-logo" /></center>
+          <b>
+            <center>
+              <h1 className="germwatch-title">GermWatch</h1>
+            </center>
+          </b>
+          <center>
+            <img src={"GermWatchLogo2.png"} alt="GermWatch Logo" className="App-logo" />
+          </center>
         </p>
-        <input
-          type="text"
-          placeholder="Enter City:"
-          value={city} // Set the input value from state
-          onChange={handleInputChange} // Handle input change
-        />
-        <button onClick={handleButtonClick}>-{">"}</button>{" "}
+        <center>
+          <input
+            type="text"
+            placeholder="Enter City:"
+            value={city} // Set the input value from state
+            onChange={handleInputChange} // Handle input change
+            className={city === "" ? "input-dim" : "input-normal"} // Conditional class for styling
+          />
+          <button onClick={handleButtonClick} disabled={city === ""}>
+            {">"}
+          </button>{" "}
+        </center>
       </header>
     </div>
   );
