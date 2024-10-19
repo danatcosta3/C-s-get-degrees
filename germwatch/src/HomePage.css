@@ -35,6 +35,7 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh; /* Make sure it covers the full viewport height */
+    background-color: #edebe9;
   }
   
   .App-header {
@@ -67,7 +68,9 @@
     background-color: #4d4646;
     height: 100vh;
     width: 25vh;
-    top: 8vh;
+    top: 7vh;
+    background-color: #d8d8d8;
+
   }
   
   .suggest-container ul {
@@ -80,15 +83,16 @@
   .suggest-container li {
     display: block; /* Ensure each list item behaves like a block */
     margin-bottom: 10px; /* Space between each city */
-    margin-left: 30px;
+    margin-left: 17px;
     margin-top: 10px;
     font-size: 25px; /* Set font size */
+    padding: 10px;
     cursor: pointer; /* Show pointer cursor on hover */
     color: #04AA6D; /* Style the text */
   }
   
   .suggest-container li:hover {
-    color: #4b7867; /* Darken the color on hover */
+    color: #784b4b; /* Darken the color on hover */
     text-decoration: underline; /* Underline on hover */
   }
   
@@ -113,7 +117,7 @@
     margin: 400px auto; /* Add space above and below, center horizontally */
     margin-left: 320px;
     width: 60%; /* Adjust the width to make it more compact */
-
+    
   }
 
   .button {
@@ -166,7 +170,7 @@
     border-radius: 8px; /* Rounded corners */
     font-size: 16px; /* Font size */
     opacity: 0.7; /* Reduced opacity for dimming effect */
-    background-color: #f9f9f9; /* Light background color */
+    background-color: #d8cece; /* Light background color */
     transition: all 0.3s ease; /* Smooth transition for effects */
   }
   
