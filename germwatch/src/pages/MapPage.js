@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
 import axios from "axios";
+import '../MapPage.css';
 
 const MapPage = () => {
   const [searchParams] = useSearchParams(); // Get the search parameters from the URL
@@ -42,7 +43,7 @@ const MapPage = () => {
 
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
-      <h1>{city}</h1>
+      <h1 className="map-title">{city}</h1>
       {loading && <p>Loading map...</p>}{" "}
       {/* Show loading message while fetching */}
       {error && <p style={{ color: "red" }}>{error}</p>}{" "}
