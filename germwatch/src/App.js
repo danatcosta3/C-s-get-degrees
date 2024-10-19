@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 
+
 function App() {
   return (
     <div className="App">
@@ -15,11 +16,7 @@ function App() {
             <Navigation />
             <UpButton />
             <Switch>
-              <Route path="/" exact component={Home} />
-              <Route path="/research" component={Research} />
-              <Route path="/publications" component={Publications} />
-              <Route path="/student" component={Student} />
-              <Route path="/about" component={About} />
+              <Route />
             </Switch>
           </>
         </Router>
