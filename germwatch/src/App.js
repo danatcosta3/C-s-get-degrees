@@ -9,15 +9,21 @@ function App() {
         <p>
           <b>GermWatch</b>
         </p>
-        <a
-          className="App-link"
-          //href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
           <input type="text" placeholder="Enter City:" />
-          <button id="first-button">Enter</button>
-        </a>
+          <Router>
+          < >
+            <Navigation />
+            <UpButton />
+            <Switch>
+              <Route path="/" exact component={Home} />
+              <Route path="/research" component={Research} />
+              <Route path="/publications" component={Publications} />
+              <Route path="/student" component={Student} />
+              <Route path="/about" component={About} />
+            </Switch>
+          </>
+        </Router>
+          <button>-{'>'}</button>
       </header>
     </div>
   );
