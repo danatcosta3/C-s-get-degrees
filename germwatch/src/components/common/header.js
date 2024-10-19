@@ -7,7 +7,6 @@ function Header() {
       <nav>
         <Link to="/" className="logo">HealthMap</Link>
         <ul>
-          <li><Link to="/map">Map</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
