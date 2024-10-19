@@ -9,15 +9,8 @@ function App() {
         <p>
           <b>GermWatch</b>
         </p>
-        <a
-          className="App-link"
-          //href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <input type="text" placeholder="Enter City:" />
-          <button id="first-button">Enter</button>
-        </a>
+        <input type="text" placeholder="Enter City:" />
+        <button id="first-button">Enter</button>
       </header>
     </div>
   );
