@@ -18,31 +18,37 @@ function HomePage() {
   return (
     <div className="App">
       <header className="App-header">
-        <p>
-          <b>
-            <center>
-              <h1 className="germwatch-title">GermWatch</h1>
-            </center>
-          </b>
-          <center>
-            <img src={"GermWatchLogo2.png"} alt="GermWatch Logo" className="App-logo" />
-          </center>
-        </p>
-        <center>
-          <input
+        <div className="suggest-container">
+            <ul>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+                <li>City</li>
+            </ul>
+        </div>
+        <div className="logo-container">
+          <img src={"GermWatchLogo2.png"} alt="GermWatch Logo" className="App-logo" />
+          <h1 className="germwatch-title">GermWatch</h1>
+        </div>
+        <div className="search-container">
+          <input 
             type="text"
             placeholder="Enter City:"
             value={city} // Set the input value from state
             onChange={handleInputChange} // Handle input change
             className={city === "" ? "input-dim" : "input-normal"} // Conditional class for styling
           />
-          <button onClick={handleButtonClick} disabled={city === ""}>
-            {">"}
-          </button>{" "}
-        </center>
+        
+          <button className="button" onClick={handleButtonClick} disabled={city === ""}>
+            {"->"}
+          </button>
+        </div>
       </header>
     </div>
   );
 }
-
 export default HomePage;
