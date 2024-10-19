@@ -18,157 +18,33 @@
     }
   }
   
-  html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    background-color: #333; 
-    overflow-x: hidden; 
-    overscroll-behavior: none; 
-  }
-
   .germwatch-title {
     font-family: "Courier New", sans-serif;  /* Example of using the Georgia font */
   }
   
   .App {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh; /* Make sure it covers the full viewport height */
-  }
-  
-  .App-header {
-    flex: 1; /* Grow to fill available space */
-  }
-  
-  footer {
-    background-color: #04AA6D;
-    color: white;
     text-align: center;
-    padding: 10px 0;
-    width: 100%;
-    position: relative; /* Normal positioning unless overridden */
-  }
-  
-  .footer-sticky {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #04AA6D;
-    color: white;
-    text-align: center;
-    padding: 10px;
-  }
-
-  .suggest-container {
-    position: absolute; /* Position it absolutely */
-    display: block; /* Ensure the container behaves as a block */
-    background-color: #4d4646;
-    height: 100vh;
-    width: 25vh;
-  }
-  
-  .suggest-container ul {
-    display: block; /* Ensure the ul behaves as a block element */
-    list-style-type: none; /* Remove default bullet points */
-    padding: 0; /* Remove default padding */
-    margin: 0; /* Remove default margin */
-  }
-  
-  .suggest-container li {
-    display: block; /* Ensure each list item behaves like a block */
-    margin-bottom: 10px; /* Space between each city */
-    font-size: 16px; /* Set font size */
-    cursor: pointer; /* Show pointer cursor on hover */
-    color: #04AA6D; /* Style the text */
-  }
-  
-  .suggest-container li:hover {
-    color: #4b7867; /* Darken the color on hover */
-    text-decoration: underline; /* Underline on hover */
-  }
-  
-  .logo-container {
-    display: flex; /* Use flexbox for logo and title alignment */
-    align-items: center; /* Center items vertically */
-    justify-content: flex-start; /* Align content to the left */
-    width: 100%; /* Full width */
-    position: absolute; /* Optional: Make it stick to the left side */
-    left: 25vh;
   }
   
   .App-logo {
-    height: 50px; /* Adjust logo height */
+    height: 40vmin;
+    pointer-events: none;
   }
   
-  .search-container {
-    display: flex; /* Use flexbox for input and button */
-    align-items: center; /* Center items vertically */
-    justify-content: center; /* Center horizontally */
-    margin: 80px auto; /* Add space above and below, center horizontally */
-    width: 60%; /* Adjust the width to make it more compact */
-    
+  @media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+      /*animation: App-logo-spin infinite 20s linear;*/
+      animation: App-logo-side-to-side 2s infinite linear;
+    }
   }
 
-  .button {
-    background-color: #04AA6D; /* Green */
-    border: none;
+  .App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 3vmin);
     color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 8px; /* Rounded corners */
-    transition: all 0.3s ease; /* Smooth transition for effects */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-    cursor: pointer; /* Pointer on hover */
   }
-  
-  .button:hover {
-    background-color: #038e5a; /* Darker green on hover */
-    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on hover */
-    transform: translateY(-2px); /* Slight "lift" effect on hover */
-  }
-  
-  .button:active {
-    background-color: #036a45; /* Even darker green when clicked */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Smaller shadow when clicked */
-    transform: translateY(0); /* Return to normal position */
-  }
-  
-  .input-normal {
-    flex: 1; /* Allow input to grow and fill available space */
-    padding: 15px; /* Padding for a better appearance */
-    border: 2px solid #04AA6D; /* Green border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    transition: all 0.3s ease; /* Smooth transition for effects */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
-  }
-  
-  .input-normal:focus {
-    border-color: #038e5a; /* Darker border color on focus */
-    outline: none; /* Remove the default outline */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on focus */
-  }
-  
-  .input-dim {
-    flex: 1; /* Allow input to grow and fill available space */
-    padding: 15px; /* Padding for a better appearance */
-    border: 2px solid #ccc; /* Light gray border */
-    border-radius: 8px; /* Rounded corners */
-    font-size: 16px; /* Font size */
-    opacity: 0.7; /* Reduced opacity for dimming effect */
-    background-color: #f9f9f9; /* Light background color */
-    transition: all 0.3s ease; /* Smooth transition for effects */
-  }
-  
-  .input-dim:focus {
-    border-color: #04AA6D; /* Change border color on focus */
-    outline: none; /* Remove the default outline */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Larger shadow on focus */
-  }
-  
-  
