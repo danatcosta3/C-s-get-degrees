@@ -99,7 +99,6 @@ footer {
   cursor: pointer; /* Show pointer cursor on hover */
   color: #04aa6d; /* Style the text */
 }
-
 .suggest-container li:hover {
   color: #784b4b; /* Darken the color on hover */
   text-decoration: underline; /* Underline on hover */
