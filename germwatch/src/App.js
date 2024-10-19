@@ -16,6 +16,7 @@ function App() {
           rel="noopener noreferrer"
         >
           <input type="text" placeholder="Enter City:" />
+          <button id="first-button">Enter</button>
         </a>
       </header>
     </div>
