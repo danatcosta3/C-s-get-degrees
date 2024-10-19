@@ -67,6 +67,7 @@
     background-color: #4d4646;
     height: 100vh;
     width: 25vh;
+    top: 8vh;
   }
   
   .suggest-container ul {
@@ -79,7 +80,9 @@
   .suggest-container li {
     display: block; /* Ensure each list item behaves like a block */
     margin-bottom: 10px; /* Space between each city */
-    font-size: 16px; /* Set font size */
+    margin-left: 30px;
+    margin-top: 10px;
+    font-size: 25px; /* Set font size */
     cursor: pointer; /* Show pointer cursor on hover */
     color: #04AA6D; /* Style the text */
   }
@@ -99,14 +102,14 @@
   }
   
   .App-logo {
-    height: 50px; /* Adjust logo height */
+    margin-top: 60px;
   }
   
   .search-container {
     display: flex; /* Use flexbox for input and button */
     align-items: center; /* Center items vertically */
     justify-content: center; /* Center horizontally */
-    margin: 80px auto; /* Add space above and below, center horizontally */
+    margin: 200px auto; /* Add space above and below, center horizontally */
     width: 60%; /* Adjust the width to make it more compact */
   }
 
