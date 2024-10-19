@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
 .App {
   text-align: center;
 }
@@ -21,7 +23,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 3vmin);
   color: white;
 }
 
@@ -50,6 +52,6 @@
 }
 
 .germwatch-title {
-  font-family: 'Courier New', serif; /* Example of using the Georgia font */
+  font-family: "Bebas Neue", sans-serif;  /* Example of using the Georgia font */
 }
 

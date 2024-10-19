@@ -36,8 +36,9 @@ li a {
   margin-left: 20px;
   color: white;
   text-decoration: none;
-  font-size: 18px;
+  font-size: 28px;
   position: relative;
+  font-family: "Bebas Neue", sans-serif
 }
 
 li a::after {
