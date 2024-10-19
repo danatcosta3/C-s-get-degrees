@@ -18,7 +18,7 @@ const MapComponent = ({ latitude, longitude }) => {
     <MapContainer
       center={position}
       zoom={13}
-      style={{ height: "500px", width: "35%" }}
+      style={{ height: "500px", width: "100%" }}
     >
       {/* Tile Layer from OpenStreetMap */}
       <TileLayer
