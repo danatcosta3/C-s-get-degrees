@@ -26,6 +26,9 @@ function HomePage() {
       <header className="App-header">
         <div className="suggest-container">
             <ul>
+                <li><b>Quick Links</b></li>
+                <li>City</li>
+                <li>City</li>
                 <li>City</li>
                 <li>City</li>
                 <li>City</li>
