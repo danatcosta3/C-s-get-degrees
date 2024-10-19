@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
+import '../App.css';
 
 function HomePage() {
   const [city, setCity] = useState(""); // State to store the input value
@@ -18,7 +19,8 @@ function HomePage() {
     <div className="App">
       <header className="App-header">
         <p>
-          <b>GermWatch</b>
+          <b><center><h1 class = "germwatch-title">GermWatch</h1></center></b>
+          <center><img src={"logo512.png"} alt="GermWatch Logo" className="App-logo" /></center>
         </p>
         <input
           type="text"
@@ -27,7 +29,6 @@ function HomePage() {
           onChange={handleInputChange} // Handle input change
         />
         <button onClick={handleButtonClick}>-{">"}</button>{" "}
-        {/* Button to navigate */}
       </header>
     </div>
   );
