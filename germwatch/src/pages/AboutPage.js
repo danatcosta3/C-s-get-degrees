@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
-function ContactPage() {
+function AboutPage() {
   return (
     <div className="App">
 
@@ -9,4 +9,4 @@ function ContactPage() {
   );
 }
 
-export default ContactPage;
+export default AboutPage;

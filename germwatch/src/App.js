@@ -1,15 +1,14 @@
-<<<<<<< Updated upstream
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
-import Routes from './routes';
-import Header from './components/common/header';
+import AppRoutes from './routes';
+import Header from './components/common/header'
 import Footer from './components/common/footer';
 
 function App() {
   return (
     <Router>
       <Header />
-      <Routes />
+      <AppRoutes />
       <Footer />
     </Router>
   );
