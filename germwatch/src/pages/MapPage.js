@@ -42,7 +42,7 @@ const MapPage = () => {
 
   return (
     <div style={{ textAlign: "center", padding: "50px" }}>
-      <h1>Map for: {city}</h1>
+      <h1>{city}</h1>
       {loading && <p>Loading map...</p>}{" "}
       {/* Show loading message while fetching */}
       {error && <p style={{ color: "red" }}>{error}</p>}{" "}
