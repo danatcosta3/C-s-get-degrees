@@ -1,51 +1,118 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
 import axios from "axios";
+import Papa from "papaparse";
 import './MapPage.css';
+import { countyCoordinates } from "../assets/countyCoordinates";
 
 const MapPage = () => {
-  const [searchParams] = useSearchParams(); // Get the search parameters from the URL
-  const city = searchParams.get("city"); // Retrieve the city parameter
-  const [coordinates, setCoordinates] = useState({ lat: null, lon: null }); // State to store coordinates
-  const [error, setError] = useState(null); // State to handle errors
-  const [loading, setLoading] = useState(true); // State to handle loading status
-  const [filters, setFilters] = useState({ sickness: false, disease: false, std: false }); // State for data filters
+  const [searchParams] = useSearchParams();
+  const city = searchParams.get("city");
+  const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [filters, setFilters] = useState({});
+  const [diseaseData, setDiseaseData] = useState([]);
+
+  const fetchCoordinates = useCallback(async () => {
+    setLoading(true);
+    try {
+      const response = await axios.get(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          city
+        )}&format=json&limit=1`
+      );
+      if (response.data.length > 0) {
+        const { lat, lon } = response.data[0];
+        setCoordinates({ lat: parseFloat(lat), lon: parseFloat(lon) });
+        setError(null);
+      } else {
+        setError("City not found");
+        setLoading(false);
+      }
+    } catch (err) {
+      setError("Error fetching coordinates");
+      setLoading(false);
+    }
+  }, [city]);
+
+  const fetchDiseaseData = useCallback(async () => {
+    try {
+      const diseaseFiles = [
+        { name: "HIV", file: "/data/hiv.csv" },
+        { name: "Gonorrhea", file: "/data/gonorrhea.csv" },
+        { name: "STD", file: "/data/Syphillis.csv" },
+        { name: "TB", file: "/data/Turberculosis.csv" }
+      ];
+
+      const initialFilters = {};
+      diseaseFiles.forEach((disease) => {
+        initialFilters[disease.name] = false;
+      });
+      setFilters(initialFilters);
+
+      const dataPromises = diseaseFiles.map(async (disease) => {
+        const response = await fetch(disease.file);
+        const csvText = await response.text();
+        const parsedData = Papa.parse(csvText, { header: true }).data;
+
+        const dataWithCoordinates = parsedData.map((item) => {
+          const geography = item.Geography;
+          const cases = item.cases;
+
+          if (!geography || !cases) return null;
+
+          const coords = countyCoordinates[geography];
+          if (!coords) return null;
+
+          return {
+            ...item,
+            lat: coords.lat,
+            lon: coords.lon,
+            disease: disease.name,
+            cases: parseInt(cases, 10),
+          };
+        });
+
+        const filteredData = dataWithCoordinates.filter(
+          (item) => item !== null
+        );
+
+        return { name: disease.name, data: filteredData };
+      });
+
+      const results = await Promise.all(dataPromises);
+
+      setDiseaseData(results);
+    } catch (err) {
+      console.error("Error fetching disease data:", err);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (city) {
-      // Function to fetch coordinates from the geocoding API
-      const fetchCoordinates = async () => {
-        setLoading(true); // Set loading to true when fetching starts
-        try {
-          const response = await axios.get(
-            `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-              city
-            )}&format=json&limit=1`
-          );
-          if (response.data.length > 0) {
-            // Get the first result's lat and lon
-            const { lat, lon } = response.data[0];
-            setCoordinates({ lat: parseFloat(lat), lon: parseFloat(lon) });
-            setError(null); // Clear any previous errors
-          } else {
-            setError("City not found");
-          }
-        } catch (err) {
-          setError("Error fetching coordinates");
-        } finally {
-          setLoading(false); // Set loading to false when fetching is done
-        }
-      };
-
-      fetchCoordinates(); // Call the function to fetch coordinates
+      fetchCoordinates();
+      fetchDiseaseData();
     }
-  }, [city]); // Run effect when the city changes
+  }, [city, fetchCoordinates, fetchDiseaseData]);
 
-  const handleFilterChange = (event) => {
+  const filterColors = useMemo(
+    () => ({
+      HIV: "red",
+      Gonorrhea: "orange",
+      STD: "blue",
+      TB: "green",
+    }),
+    []
+  );
+
+  const handleFilterChange = useCallback((event) => {
     const { name, checked } = event.target;
     setFilters((prevFilters) => ({ ...prevFilters, [name]: checked }));
-  };
+  }, []);
 
   return (
     <div className="map-page">
@@ -53,39 +120,28 @@ const MapPage = () => {
       <div className="map-and-filters">
         <div className="filter-panel">
           <h3>Data Filters</h3>
-          <label style={{ color: 'blue' }}>
-            <input
-              type="checkbox"
-              name="sickness"
-              checked={filters.sickness}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">Sickness</span>
-          </label>
-          <label style={{ color: 'green' }}>
-            <input
-              type="checkbox"
-              name="disease"
-              checked={filters.disease}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">Disease</span>
-          </label>
-          <label style={{ color: 'red' }}>
-            <input
-              type="checkbox"
-              name="std"
-              checked={filters.std}
-              onChange={handleFilterChange}
-            />
-            <span className="filter-label">STDs</span>
-          </label>
+          {Object.keys(filters).map((filterName) => (
+            <label key={filterName} style={{ color: filterColors[filterName] }}>
+              <input
+                type="checkbox"
+                name={filterName}
+                checked={filters[filterName]}
+                onChange={handleFilterChange}
+              />
+              <span className="filter-label">{filterName}</span>
+            </label>
+          ))}
         </div>
-        {loading && <p>Loading map...</p>} {/* Show loading message while fetching */}
-        {error && <p className="error-message">{error}</p>} {/* Display error if any */}
+        {loading && <p>Loading map...</p>}
+        {error && <p className="error-message">{error}</p>}
         {!loading && coordinates.lat && coordinates.lon && (
           <div className="map-container">
-            <MapComponent latitude={coordinates.lat} longitude={coordinates.lon} filters={filters} />
+            <MapComponent
+              latitude={coordinates.lat}
+              longitude={coordinates.lon}
+              filters={filters}
+              diseaseData={diseaseData}
+            />
           </div>
         )}
       </div>
