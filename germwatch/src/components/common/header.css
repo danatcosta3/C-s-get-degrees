@@ -1,29 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
 
-nav {
-  position: fixed; 
-  left: 0; 
-  right: 0; 
+.navbar {
+  position: fixed;
+  left: 0;
+  right: 0;
   top: 0;
   z-index: 1000;
   width: 100%;
-  background-color: #333; 
+  background-color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px; 
+  padding: 10px 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-nav .logo {
+.navbar .logo {
   font-size: 36px;
   font-weight: bold;
   color: white;
   text-decoration: none;
-  font-family: "Bebas Neue", sans-serif; 
+  font-family: "Bebas Neue", sans-serif;
 }
 
-ul {
+.navbar ul {
   list-style-type: none;
   margin: 0;
   padding-right: 50px;
@@ -32,16 +32,16 @@ ul {
   font-size: large;
 }
 
-li a {
+.navbar li a {
   margin-left: 20px;
   color: white;
   text-decoration: none;
   font-size: 28px;
   position: relative;
-  font-family: "Bebas Neue", sans-serif
+  font-family: "Bebas Neue", sans-serif;
 }
 
-li a::after {
+.navbar li a::after {
   content: "";
   width: 0;
   height: 3px;
@@ -52,11 +52,10 @@ li a::after {
   transition: width 0.25s;
 }
 
-li a:hover::after {
+.navbar li a:hover::after {
   width: 100%;
 }
 
 body {
-  padding-top: 60px; 
+  padding-top: 60px;
 }
-

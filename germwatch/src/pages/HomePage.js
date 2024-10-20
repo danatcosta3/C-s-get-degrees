@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
 import "../HomePage.css";
+import AutoComplete from "@mui/material/Autocomplete"; // Ensure correct import
+import TextField from "@mui/material/TextField"; // Ensure correct import for renderInput
+import options from "../cities.json"; // Import your JSON file
 
 function HomePage() {
   const [city, setCity] = useState(""); // State to store the input value
+  const [inputValue, setInputValue] = useState(""); // State for input value for autocomplete
   const navigate = useNavigate(); // Hook to programmatically navigate
-
-  const handleInputChange = (e) => {
-    setCity(e.target.value); // Update the state with the input value
-  };
 
   const handleButtonClick = () => {
     // Navigate to the MapPage with the city value as a query parameter
@@ -20,11 +20,19 @@ function HomePage() {
       handleButtonClick(); // Trigger button click on Enter key
     }
   };
+
   const handleCityClick = (selectedCity) => {
     setCity(selectedCity); // Set the input field to the clicked city
     navigate(`/map?city=${encodeURIComponent(selectedCity)}`); // Navigate to the map page
   };
 
+  // Filter options based on input length
+  const filteredOptions =
+    inputValue.length >= 3
+      ? options.filter((option) =>
+          option.label.toLowerCase().includes(inputValue.toLowerCase())
+        )
+      : [];
   return (
     <div className="App">
       <header className="App-header">
@@ -75,13 +83,24 @@ function HomePage() {
           <div className="text-search-button">
             <h2 className="font">Enter a city to examine...</h2>
             <div className="search-container">
-              <input
-                type="text"
-                placeholder="Columbus, OH"
-                value={city} // Set the input value from state
-                onChange={handleInputChange} // Handle input change
-                onKeyDown={handleKeyDown} // Listen for Enter key press
-                className={city === "" ? "input-dim" : "input-normal"} // Conditional class for styling
+              {/* Autocomplete Component */}
+              <AutoComplete
+                disablePortal
+                options={filteredOptions} // Using the filtered options
+                getOptionLabel={(option) => option.label} // Set the label field for autocomplete
+                inputValue={inputValue} // Controlled input value
+                onInputChange={(event, newValue) => setInputValue(newValue)} // Update input value as the user types
+                onChange={(event, newValue) => {
+                  setCity(newValue?.label || ""); // Set the city when a suggestion is selected
+                }}
+                renderInput={(params) => (
+                  <TextField
+                    {...params}
+                    label="City, State"
+                    variant="outlined"
+                  />
+                )}
+                sx={{ width: 300 }}
               />
               <button
                 className="button"
@@ -97,4 +116,5 @@ function HomePage() {
     </div>
   );
 }
+
 export default HomePage;
