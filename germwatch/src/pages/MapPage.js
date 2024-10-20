@@ -1,5 +1,4 @@
-// MapPage.js
-import React, { useEffect, useState, useCallback, useMemo } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
 import axios from "axios";
@@ -12,12 +11,18 @@ const MapPage = () => {
   const city = searchParams.get("city");
   const [coordinates, setCoordinates] = useState({ lat: null, lon: null });
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
-  const [selectedDisease, setSelectedDisease] = useState(null);
-  const [diseaseData, setDiseaseData] = useState([]);
+  const [selectedDisease, setSelectedDisease] = useState("HIV");
+  const [currentDiseaseData, setCurrentDiseaseData] = useState([]);
+
+  const diseaseFiles = [
+    { name: "HIV", file: "/data/hiv.csv" },
+    { name: "Gonorrhea", file: "/data/gonorrhea.csv" },
+    { name: "Syphillis", file: "/data/syphillis.csv" },
+    { name: "Chlamydia", file: "/data/chlamydia.csv" },
+    { name: "Turberculosis", file: "/data/turberculosis.csv" },
+  ];
 
   const fetchCoordinates = useCallback(async () => {
-    setLoading(true);
     try {
       const response = await axios.get(
         `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
@@ -30,100 +35,81 @@ const MapPage = () => {
         setError(null);
       } else {
         setError("City not found");
-        setLoading(false);
       }
     } catch (err) {
       setError("Error fetching coordinates");
-      setLoading(false);
-    }
+    } 
   }, [city]);
 
-  const fetchDiseaseData = useCallback(async () => {
+  const fetchDiseaseData = useCallback(async (diseaseName) => {
     try {
-      const diseaseFiles = [
-        { name: "HIV", file: "/data/hiv.csv" },
-        { name: "Gonorrhea", file: "/data/gonorrhea.csv" },
-        { name: "STD", file: "/data/Syphillis.csv" },
-        { name: "TB", file: "/data/Turberculosis.csv" },
-      ];
+      const diseaseFileMap = {
+        HIV: "/data/hiv.csv",
+        Gonorrhea: "/data/gonorrhea.csv",
+        Syphillis: "/data/syphillis.csv",
+        Chlamydia: "/data/chlamydia.csv",
+        Turberculosis: "/data/turberculosis.csv",
+      };
 
-      const dataPromises = diseaseFiles.map(async (disease) => {
-        const response = await fetch(disease.file);
-        const csvText = await response.text();
-        const parsedData = Papa.parse(csvText, { header: true }).data;
+      const file = diseaseFileMap[diseaseName];
+      const response = await fetch(file);
+      const csvText = await response.text();
+      const parsedData = Papa.parse(csvText, { header: true }).data;
 
-        const dataWithCoordinates = parsedData.map((item) => {
-          const geography = item.Geography;
-          const cases = item.Cases;
+      const dataWithCoordinates = parsedData.map((item) => {
+        const geography = item.Geography;
+        const cases = item.Cases;
 
-          if (!geography || cases == null || cases === "") return null;
+        if (!geography || cases == null || cases === "") return null;
 
-          const coords = countyCoordinates[geography];
-          if (!coords) return null;
+        const coords = countyCoordinates[geography];
+        if (!coords) return null;
 
-          let caseCount;
-          if (cases === "Data suppressed") {
-            caseCount = "Data suppressed";
-          } else {
-            caseCount = parseInt(cases, 10);
-            if (isNaN(caseCount)) {
-              caseCount = null;
-            }
+        let caseCount;
+        if (cases === "Data suppressed") {
+          caseCount = "Data suppressed";
+        } else {
+          caseCount = parseInt(cases, 10);
+          if (isNaN(caseCount)) {
+            caseCount = null;
           }
+        }
 
-          return {
-            ...item,
-            lat: coords.lat,
-            lon: coords.lon,
-            disease: disease.name,
-            cases: caseCount,
-          };
-        });
-
-        const filteredData = dataWithCoordinates.filter(
-          (item) => item !== null
-        );
-
-        return { name: disease.name, data: filteredData };
+        return {
+          ...item,
+          lat: coords.lat,
+          lon: coords.lon,
+          disease: diseaseName,
+          cases: caseCount,
+        };
       });
 
-      const results = await Promise.all(dataPromises);
+      const filteredData = dataWithCoordinates.filter(
+        (item) => item !== null
+      );
 
-      setDiseaseData(results);
+      setCurrentDiseaseData(filteredData);
     } catch (err) {
       console.error("Error fetching disease data:", err);
-    } finally {
-      setLoading(false);
-    }
+    } 
   }, []);
 
   useEffect(() => {
     if (city) {
       fetchCoordinates();
-      fetchDiseaseData();
     }
-  }, [city, fetchCoordinates, fetchDiseaseData]);
+  }, [city, fetchCoordinates]);
 
-  const filterColors = useMemo(
-    () => ({
-      HIV: "red",
-      Gonorrhea: "orange",
-      STD: "blue",
-      TB: "green",
-    }),
-    []
-  );
+  useEffect(() => {
+    if (selectedDisease) {
+      fetchDiseaseData(selectedDisease);
+    }
+  }, [selectedDisease, fetchDiseaseData]);
 
   const handleFilterChange = useCallback((event) => {
     const { value } = event.target;
-    setSelectedDisease(value);
+    setSelectedDisease(value); // Trigger spinner and data load on filter change
   }, []);
-
-  const filteredDiseaseData = useMemo(() => {
-    if (!selectedDisease) return [];
-    const disease = diseaseData.find((d) => d.name === selectedDisease);
-    return disease ? disease.data : [];
-  }, [selectedDisease, diseaseData]);
 
   return (
     <div className="map-page">
@@ -131,8 +117,8 @@ const MapPage = () => {
       <div className="map-and-filters">
         <div className="filter-panel">
           <h3>Data Filters</h3>
-          {diseaseData.map(({ name }) => (
-            <label key={name} style={{ color: filterColors[name] }}>
+          {diseaseFiles.map(({ name }) => (
+            <label key={name}>
               <input
                 type="radio"
                 name="diseaseFilter"
@@ -143,19 +129,36 @@ const MapPage = () => {
               <span className="filter-label">{name}</span>
             </label>
           ))}
+          <div className="color-legend">
+            <h4>Color Legend (Cases):</h4>
+            <div className="color-range">
+              <span className="color-box" style={{ backgroundColor: 'yellow' }}></span>
+              <span>Low</span>
+            </div>
+            <div className="color-range">
+              <span className="color-box" style={{ backgroundColor: 'orange' }}></span>
+              <span>Moderate</span>
+            </div>
+            <div className="color-range">
+              <span className="color-box" style={{ backgroundColor: 'red' }}></span>
+              <span>High</span>
+            </div>
+            <div className="color-range">
+              <span className="color-box" style={{ backgroundColor: 'gray' }}></span>
+              <span>Data Suppressed</span>
+            </div>
+          </div>
         </div>
-        {loading && <p>Loading map...</p>}
-        {error && <p className="error-message">{error}</p>}
-        {!loading && coordinates.lat && coordinates.lon && (
+        {(coordinates.lat && coordinates.lon && (
           <div className="map-container">
             <MapComponent
               key={selectedDisease}
               latitude={coordinates.lat}
               longitude={coordinates.lon}
-              diseaseData={filteredDiseaseData}
+              diseaseData={currentDiseaseData}
             />
           </div>
-        )}
+        ))}
       </div>
     </div>
   );

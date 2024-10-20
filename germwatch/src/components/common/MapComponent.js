@@ -61,7 +61,7 @@ const MapComponent = ({ latitude, longitude, diseaseData }) => {
   return (
     <MapContainer
       center={position}
-      zoom={6} // Adjusted zoom level for better visibility
+      zoom={10} 
       style={{ height: "500px", width: "100%" }}
     >
       {/* Tile Layer from OpenStreetMap */}

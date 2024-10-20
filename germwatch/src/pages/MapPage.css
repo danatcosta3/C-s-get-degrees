@@ -42,7 +42,7 @@ body {
   align-items: center;
   margin-bottom: 10px;
   font-size: 1rem;
-  color: #555;
+  color: #000; /* Ensure disease filter labels are black */
 }
 
 .filter-label {
@@ -60,4 +60,28 @@ body {
   border-radius: 10px;
   overflow: hidden;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.color-legend {
+  margin-top: 20px;
+}
+
+.color-legend h4 {
+  font-size: 1.1rem;
+  color: #444;
+  margin-bottom: 10px;
+}
+
+.color-range {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.color-box {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
