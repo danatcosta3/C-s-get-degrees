@@ -4,7 +4,7 @@ import "./footer.css";
 function Footer() {
   return (
     <footer>
-      <p>&copy; {new Date().getFullYear()} HealthMap. All rights reserved.</p>
+      <p>GermWatch! </p>
     </footer>
   );
 }
