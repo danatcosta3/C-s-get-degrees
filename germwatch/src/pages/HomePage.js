@@ -15,12 +15,6 @@ function HomePage() {
     navigate(`/map?city=${encodeURIComponent(city)}`);
   };
 
-  const handleKeyDown = (e) => {
-    if (e.key === "Enter") {
-      handleButtonClick(); // Trigger button click on Enter key
-    }
-  };
-
   const handleCityClick = (selectedCity) => {
     setCity(selectedCity); // Set the input field to the clicked city
     navigate(`/map?city=${encodeURIComponent(selectedCity)}`); // Navigate to the map page
@@ -33,6 +27,13 @@ function HomePage() {
           option.label.toLowerCase().includes(inputValue.toLowerCase())
         )
       : [];
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter" && city) {
+      handleButtonClick(); // Call the function to navigate when Enter is pressed
+    }
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -72,14 +73,7 @@ function HomePage() {
           </ul>
         </div>
         <div className="right-panel">
-          <div className="logo-container">
-            <img
-              src={"GermWatchLogo2.png"}
-              alt="GermWatch Logo"
-              className="App-logo"
-            />
-            <h1 className="font">GermWatch</h1>
-          </div>
+          <div className="logo-container"></div>
           <div className="text-search-button">
             <h2 className="font">Enter a city to examine...</h2>
             <div className="search-container">
@@ -98,6 +92,7 @@ function HomePage() {
                     {...params}
                     label="City, State"
                     variant="outlined"
+                    onKeyPress={handleKeyPress} // Handle Enter key press
                   />
                 )}
                 sx={{ width: 300 }}

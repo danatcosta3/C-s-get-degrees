@@ -8,9 +8,11 @@
   z-index: 1000;
   width: 100%;
   background-color: #333;
+  background-color: #333;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 10px 20px;
   padding: 10px 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
@@ -20,6 +22,7 @@
   font-weight: bold;
   color: white;
   text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
   font-family: "Bebas Neue", sans-serif;
 }
 
@@ -38,6 +41,7 @@
   text-decoration: none;
   font-size: 28px;
   position: relative;
+  font-family: "Bebas Neue", sans-serif;
   font-family: "Bebas Neue", sans-serif;
 }
 
@@ -58,4 +62,10 @@
 
 body {
   padding-top: 60px;
+  padding-top: 60px;
+}
+
+.icon {
+  width: 50px;
+  height: 50px;
 }
