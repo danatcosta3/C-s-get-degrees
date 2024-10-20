@@ -1,3 +1,4 @@
+// MapPage.js
 import React, { useEffect, useState, useCallback, useMemo } from "react";
 import { useSearchParams } from "react-router-dom";
 import MapComponent from "../components/common/MapComponent";
@@ -52,20 +53,30 @@ const MapPage = () => {
         const parsedData = Papa.parse(csvText, { header: true }).data;
 
         const dataWithCoordinates = parsedData.map((item) => {
-          
           const geography = item.Geography;
           const cases = item.Cases;
-          
-          if (!geography || !cases) return null;
+
+          if (!geography || cases == null || cases === "") return null;
+
           const coords = countyCoordinates[geography];
           if (!coords) return null;
+
+          let caseCount;
+          if (cases === "Data suppressed") {
+            caseCount = "Data suppressed";
+          } else {
+            caseCount = parseInt(cases, 10);
+            if (isNaN(caseCount)) {
+              caseCount = null;
+            }
+          }
 
           return {
             ...item,
             lat: coords.lat,
             lon: coords.lon,
             disease: disease.name,
-            cases: parseInt(cases, 10),
+            cases: caseCount,
           };
         });
 
