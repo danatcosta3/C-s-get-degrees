@@ -4,7 +4,7 @@ import './ContactPage.css';
 const ContactPage = () => {
   return (
     <div className="App">
-    <h2 class="title">Conact Us Here </h2>
+    <h2 class="title">Contact Us Here </h2>
     <img class="icon"src="134146_mail_email_icon.png" alt="email icon" />
     <p class="main">Jackson Bialecki</p> 
     <p class="emailAdjust"><a href="mailto:bialecjr@mail.uc.edu">bialecjr@mail.uc.edu</a></p>
