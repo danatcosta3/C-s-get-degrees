@@ -1,4 +1,3 @@
-// MapComponent.js
 import React from "react";
 import {
   MapContainer,
@@ -9,7 +8,6 @@ import {
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-// Fixing the default icon issue with Leaflet
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -20,7 +18,6 @@ L.Icon.Default.mergeOptions({
 const MapComponent = ({ latitude, longitude, diseaseData }) => {
   const position = [latitude, longitude];
 
-  // Compute minCases and maxCases
   let minCases = 0;
   let maxCases = 1;
 
@@ -35,10 +32,10 @@ const MapComponent = ({ latitude, longitude, diseaseData }) => {
 
   const getColor = (cases) => {
     if (cases === "Data suppressed") {
-      return "gray"; // Color for suppressed data
+      return "gray"; 
     }
     if (typeof cases !== "number") {
-      return "black"; // Default color
+      return "black";
     }
     let t = 0;
     if (maxCases !== minCases) {
@@ -64,18 +61,15 @@ const MapComponent = ({ latitude, longitude, diseaseData }) => {
       zoom={10} 
       style={{ height: "500px", width: "100%" }}
     >
-      {/* Tile Layer from OpenStreetMap */}
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution="&copy; OpenStreetMap contributors"
       />
-      {/* Marker at the given position */}
       <Marker position={position}>
         <Popup>
           Location: {latitude}, {longitude}
         </Popup>
       </Marker>
-      {/* Disease markers */}
       {diseaseData.map((item, index) => (
         <Marker
           key={index}

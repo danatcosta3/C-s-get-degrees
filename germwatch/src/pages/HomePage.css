@@ -1,0 +1,156 @@
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+.font {
+  font-family: "Courier New", sans-serif;
+}
+
+.App {
+  display: flex;
+  min-height: 100vh;
+  background-color: #edebe9;
+}
+
+.App-header {
+  display: flex;
+  flex-direction: row;
+  width: 100vh;
+}
+.right-panel {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+.text-search-button {
+  margin: 40vh;
+  width: 100vh;
+}
+
+.suggest-container {
+  display: block;
+  background-color: #4d4646;
+  height: 100vh;
+  width: 100%;
+  top: 7vh;
+  background-color: #d8d8d8;
+}
+
+.suggest-container ul {
+  display: block; 
+  list-style-type: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.suggest-container li {
+  display: block;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  font-size: 17px;
+  padding: 5px;
+  cursor: pointer;
+  color: #04aa6d; 
+}
+.suggest-container li:hover {
+  color: #784b4b; 
+  text-decoration: underline;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%; 
+  margin-top: -45px;
+  left: 25vh;
+}
+
+.App-logo {
+  margin-top: 60px;
+}
+
+.search-container {
+  display: flex; 
+  align-items: center; 
+  justify-content: center; 
+  width: 100%; 
+}
+
+.button {
+  background-color: #04aa6d;
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: all 0.3s ease; 
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  cursor: pointer; 
+}
+
+.button:hover {
+  background-color: #038e5a;
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.2); 
+  transform: translateY(-2px); 
+}
+
+.button:active {
+  background-color: #036a45; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  transform: translateY(0); 
+}
+
+.input-normal {
+  flex: 1; 
+  padding: 15px; 
+  border: 2px solid #04aa6d; 
+  border-radius: 8px; 
+  font-size: 16px;
+  transition: all 0.3s ease; 
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+}
+
+.input-normal:focus {
+  border-color: #038e5a; 
+  outline: none; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.input-dim {
+  flex: 1; 
+  padding: 15px; 
+  border: 2px solid #ccc; 
+  border-radius: 8px; 
+  font-size: 16px;
+  opacity: 0.7; 
+  background-color: #d8cece; 
+  transition: all 0.3s ease; 
+}
+
+.input-dim:focus {
+  border-color: #04aa6d; 
+  outline: none; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.MuiAutocomplete-root {
+  width: 100%; 
+  flex: auto;
+}
+
+.MuiAutocomplete-popper {
+  z-index: 1; 
+}

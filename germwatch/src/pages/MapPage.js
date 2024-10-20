@@ -108,7 +108,7 @@ const MapPage = () => {
 
   const handleFilterChange = useCallback((event) => {
     const { value } = event.target;
-    setSelectedDisease(value); // Trigger spinner and data load on filter change
+    setSelectedDisease(value); 
   }, []);
 
   return (

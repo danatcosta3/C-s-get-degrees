@@ -6,7 +6,7 @@ const ContactPage = () => {
     <div>
       <h2 class="title">Contact Us Here </h2>
       <div class="image-container">
-      <img class="icon"src="134146_mail_email_icon.png" alt="email icon" />
+        <img class="icon"src="email_icon.png" alt="email icon" />
       </div>
       <p class="main">Jackson Bialecki</p> 
       <p class="emailAdjust"><a href="mailto:bialecjr@mail.uc.edu">bialecjr@mail.uc.edu</a></p>

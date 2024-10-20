@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate for navigation
-import "../HomePage.css";
-import AutoComplete from "@mui/material/Autocomplete"; // Ensure correct import
-import TextField from "@mui/material/TextField"; // Ensure correct import for renderInput
-import options from "../cities.json"; // Import your JSON file
+import { useNavigate } from "react-router-dom";
+import "./HomePage.css";
+import AutoComplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import options from "../assets/cities.json";
 
 function HomePage() {
-  const [city, setCity] = useState(""); // State to store the input value
-  const [inputValue, setInputValue] = useState(""); // State for input value for autocomplete
-  const navigate = useNavigate(); // Hook to programmatically navigate
+  const [city, setCity] = useState("");
+  const [inputValue, setInputValue] = useState(""); 
+  const navigate = useNavigate(); 
 
   const handleButtonClick = () => {
-    // Navigate to the MapPage with the city value as a query parameter
     navigate(`/map?city=${encodeURIComponent(city)}`);
   };
 
   const handleCityClick = (selectedCity) => {
-    setCity(selectedCity); // Set the input field to the clicked city
-    navigate(`/map?city=${encodeURIComponent(selectedCity)}`); // Navigate to the map page
+    setCity(selectedCity); 
+    navigate(`/map?city=${encodeURIComponent(selectedCity)}`); 
   };
 
-  // Filter options based on input length
   const filteredOptions =
     inputValue.length >= 3
       ? options.filter((option) =>
@@ -30,7 +28,7 @@ function HomePage() {
 
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && city) {
-      handleButtonClick(); // Call the function to navigate when Enter is pressed
+      handleButtonClick(); 
     }
   };
 
@@ -77,22 +75,21 @@ function HomePage() {
           <div className="text-search-button">
             <h2 className="font">Enter a city to examine...</h2>
             <div className="search-container">
-              {/* Autocomplete Component */}
               <AutoComplete
                 disablePortal
-                options={filteredOptions} // Using the filtered options
-                getOptionLabel={(option) => option.label} // Set the label field for autocomplete
-                inputValue={inputValue} // Controlled input value
-                onInputChange={(event, newValue) => setInputValue(newValue)} // Update input value as the user types
+                options={filteredOptions} 
+                getOptionLabel={(option) => option.label} 
+                inputValue={inputValue}
+                onInputChange={(event, newValue) => setInputValue(newValue)} 
                 onChange={(event, newValue) => {
-                  setCity(newValue?.label || ""); // Set the city when a suggestion is selected
+                  setCity(newValue?.label || "");
                 }}
                 renderInput={(params) => (
                   <TextField
                     {...params}
                     label="City, State"
                     variant="outlined"
-                    onKeyPress={handleKeyPress} // Handle Enter key press
+                    onKeyPress={handleKeyPress}
                   />
                 )}
                 sx={{ width: 300 }}
