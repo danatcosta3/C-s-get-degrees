@@ -7,6 +7,10 @@
     margin: 40px;
 }
 
+.image-container {
+  display: flex;
+  justify-content: center;
+}
 
 .main {
     font-family: 'Courier New', Courier, monospace;
