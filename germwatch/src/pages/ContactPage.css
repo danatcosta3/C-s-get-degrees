@@ -1,0 +1,28 @@
+
+.title{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 30px;
+    text-align: center;
+    color: #000000;
+    margin: 40px;
+}
+
+
+.main {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20px;
+    text-align: center;
+    color: #000000;
+}
+
+.icon {
+    width: 100px;
+    height: 100px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.emailAdjust {
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
